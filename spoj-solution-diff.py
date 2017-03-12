@@ -52,7 +52,8 @@ print()
 
 #Scrap for number of accepted solutions for each problem
 d={}
-for i in (sf-su):
+_S = sf-su
+for i in _S:
 	print("Extracting info for '"+i+"'")
 	url = "http://www.spoj.com/ranks/"+i+"/"
 	try:
@@ -62,9 +63,15 @@ for i in (sf-su):
 		exit(0)
 	r=r.split('<td class="text-center">')
 	j = r[1].split('</td>')[0]
-	d[i] = j
+	d[i] = int(j)
 #End of scrapping number of users
 
-print("\nYou have not solved "+str(len(d))+"that your friends have solved. The list is as follows\n")
-
-print(d)
+print("\nYou have not solved "+str(len(d))+" that your friends have solved. The list is as follows: \n\nProblem Code-Accepted\n")
+m=0
+midx=''
+for key in d:
+	print(key+"-"+str(d[key]))
+	if(d[key]>m):
+		m=d[key]
+		midx=key
+print("\n\nYour next target is : "+midx)
