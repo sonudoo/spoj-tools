@@ -68,6 +68,7 @@ def clean(s):
 	s = s.replace("\\n", "")
 	s = s.replace("\\t", "")
 	s = s.replace(" ","")
+	s = s.strip()
 	return s
 
 #Check for the the result
@@ -75,25 +76,26 @@ print("\nRunning Judge..\n")
 url = 'http://www.spoj.com/status/'+qid+','+username+'/'
 while(1==1):
 	r=str(requests.get(url,headers=header).content)
-	status=clean((r.split('" status="'))[1].split('"')[0])
-	if(status=='1'):
+	status=int(clean((r.split('" status="'))[1].split('"')[0]))
+	if(status<10):
 		time.sleep(3)
 		continue
 	s=""
-	if(status=='15'):
+	if(status==15):
 		s="Accepted"
-	elif(status=='14'):
+	elif(status==14):
 		s="Wrong Answer"
-	elif(status=='13'):
+	elif(status==13):
 		s="Time Limit Exceeded"
-	elif(status=='12'):
+	elif(status==12):
 		s=="Runtime Error"
-	elif(status=='11'):
+	elif(status==11):
 		s="Compilation Error"
-	elif(status=='10'):
+	elif(status==10):
 		s="Disqualified"
 	else:
-		s="Unknown Status"
+		time.sleep(3)
+		continue
 	t=clean((r.split('best solutions">'))[1].split('<')[0])
 	m=clean((r.split('id="statusmem_'))[1].split('>')[1].split('<')[0])
 	print("Status : "+s)
