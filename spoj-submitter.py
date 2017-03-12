@@ -1,9 +1,38 @@
-import sys,requests,json,pathlib,time
-username = "" #Specify your username here
-password = "" #Specify your password here
-if(username=="" or password==""):
-	print('Looks like you haven\'t specified the username and password yet. Please edit line 2 and 3 of this script')
-	exit(0)
+import sys,requests,json,pathlib,time,pickle,getpass,os
+username = ""
+password = ""
+try:
+	with open('spoj-submitter.dat', 'rb') as handle:
+	    b = pickle.load(handle)
+	username = b['username']
+	password = b['password']
+	handle.close()
+except:
+	print('\nLooks like you haven\'t specified the username and password yet\n')
+	u = ""
+	while(1==1):
+		u = input("Enter your spoj username: ")
+		if(u==""):
+			print("Try again..")
+		else:
+			break
+	p = ""
+	while(1==1):
+		p = getpass.getpass("Enter your spoj password: ")
+		if(p==""):
+			print("Try again..")
+		else:
+			break
+	a = {'username': u,'password':p}
+	f = open('spoj-submitter.dat', 'w+')
+	with open('spoj-submitter.dat', 'wb') as handle:
+		pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	f.close()
+	handle.close()
+	username = u
+	password = p
+
+#Check for valid arguments
 try:
 	qid = sys.argv[1]
 	file = sys.argv[2]
@@ -12,6 +41,7 @@ except:
 	print("Format: python spoj-submitter.py <problemcode> <filename>")
 	print("Sample use: python spoj-submitter.py FOXLINGS myfile.cpp")
 	exit(0)
+#End check for arguments 
 
 #Code to check is the file exists
 pfile = pathlib.Path(file)
@@ -52,7 +82,8 @@ header['Cookie'] = r.headers['Set-Cookie'].split('; ')[0]
 
 #Check if login successful
 if(len(r.headers['Set-Cookie'].split('autologin_hash'))<2):
-	print('\nLogin failed')
+	print('\nLogin failed. The credentials in the file may be wrong/tampered. Please re-run the application to enter new credential')
+	os.remove("spoj-submitter.dat")
 	exit(0)
 else:
 	print('\nLogin successful')
