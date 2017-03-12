@@ -59,6 +59,7 @@ else:
 #End code to check login
 
 #Check the language code
+lcodes={}
 url = 'http://www.spoj.com/submit/'+qid+'/'
 try:
 	r=requests.get(url,headers=header,allow_redirects=False)
@@ -68,7 +69,6 @@ r=str(r.content).split('<option value="')
 for i in range(1,len(r)):
 	r[i] = r[i].split('" >')
 	lcodes[int(r[i][0])] = r[i][1].split('</option>')[0]
-print(lcodes)
 while(1==1):
 	lang = input("\nEnter the language code (-1 to list all): ")
 	lang = int(lang)
