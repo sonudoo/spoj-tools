@@ -58,12 +58,16 @@ else:
 	print('Login successful')
 #End code to check login
 
-exit(0)
 #All checks have passed now. Upload the file
 file = {'subm_file': open(file,'rb')}
 upload_data = {'lang': lang, 'problemcode': qid, 'file': '', 'submit':'Submit!'}
 r = requests.post('http://www.spoj.com/submit/complete/', headers=header,files=file,data=upload_data)
-#File upload complete
+File upload complete
 
 #Check for the the result
-url = 
+url = 'http://www.spoj.com/status/'+qid+','+username+'/'
+while(1==1):
+	r=str(requests.get(url,headers=header).content).split('<strong>')
+	status = r[1].split('</strong>')[0]
+	if(status=="running"):
+		
