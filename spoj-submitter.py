@@ -1,6 +1,6 @@
 import sys,requests,json,pathlib,time
-username = "scrapper1" #Specify your username here
-password = "fake" #Specify your password here
+username = "" #Specify your username here
+password = "" #Specify your password here
 if(username=="" or password==""):
 	print('Looks like you haven\'t specified the username and password yet. Please edit line 2 and 3 of this script')
 	exit(0)
