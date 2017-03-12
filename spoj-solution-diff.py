@@ -66,11 +66,11 @@ for i in _S:
 	d[i] = int(j)
 #End of scrapping number of users
 
-print("\nYou have not solved "+str(len(d))+" that your friends have solved. The list is as follows: \n\nProblem Code-Accepted\n")
+print("\nYou have not solved "+str(len(d))+" that your friends have solved. The list is as follows: \n\nProblem Code - Users\n")
 m=0
 midx=''
 for key in d:
-	print(key+"-"+str(d[key]))
+	print(" "+key+(15-len(key))*" "+str(d[key]))
 	if(d[key]>m):
 		m=d[key]
 		midx=key
