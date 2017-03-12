@@ -6,7 +6,7 @@ try:
 	file = sys.argv[4]
 	lang = sys.argv[5]
 except:
-	print("Failed to start web scrapping. Please give a set of arguments.")
+	print("Failed to start web scrapping. Please give a valid set of arguments.")
 	print("Format: python spoj-submitter.py <user> <pass> <problemcode> <filename> <languagecode>")
 	print("Sample use: python spoj-submitter.py user pass FOXLINGS myfile.cpp ")
 	exit(0)
@@ -35,7 +35,11 @@ header = {'Host':'www.spoj.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win6
 
 #Check is the problem exists
 url = 'http://www.spoj.com/submit/'+qid+'/'
-r=requests.get(url,headers=header,allow_redirects=False)
+try:
+	r=requests.get(url,headers=header,allow_redirects=False)
+except:
+	print("Connection error. Make sure you are connected to Internet")
+	exit(0)
 if(r.status_code==404):
 	print('No such problem was found on the server.')
 	exit(0)
@@ -45,7 +49,11 @@ print("Specified problem: "+qid)
 
 #Send login data
 login_data = {'next_raw':'','autologin':'1','login_user':username,'password':password}
-r=requests.post('http://www.spoj.com/login/',data=login_data,headers=header,allow_redirects=False)
+try:
+	r=requests.post('http://www.spoj.com/login/',data=login_data,headers=header,allow_redirects=False)
+except:
+	print("Connection error. Falied to login")
+	exit(0)
 header['Cookie'] = r.headers['Set-Cookie'].split('; ')[0]
 #Login data sent and session ID captured
 
@@ -60,7 +68,11 @@ else:
 #All checks have passed now. Upload the file
 file = {'subm_file': open(file,'rb')}
 upload_data = {'lang': lang, 'problemcode': qid, 'file': '', 'submit':'Submit!'}
-r = requests.post('http://www.spoj.com/submit/complete/', headers=header,files=file,data=upload_data)
+try:
+	r = requests.post('http://www.spoj.com/submit/complete/', headers=header,files=file,data=upload_data)
+except:
+	print("Connection error. Problem couldn't be submitted")
+	exit(0)
 print("\nSolution submitted..")
 #File upload complete
 
@@ -75,7 +87,11 @@ def clean(s):
 print("\nRunning Judge..\n")
 url = 'http://www.spoj.com/status/'+qid+','+username+'/'
 while(1==1):
-	r=str(requests.get(url,headers=header).content)
+	try:
+		r=str(requests.get(url,headers=header).content)
+	except:
+		print("Connection error. Failed to fetch status")
+		exit(0)
 	status=int(clean((r.split('" status="'))[1].split('"')[0]))
 	if(status<10):
 		time.sleep(3)
@@ -88,14 +104,13 @@ while(1==1):
 	elif(status==13):
 		s="Time Limit Exceeded"
 	elif(status==12):
-		s="Runtime Error"
+		s=="Runtime Error"
 	elif(status==11):
 		s="Compilation Error"
 	elif(status==10):
 		s="Disqualified"
 	else:
-		time.sleep(3)
-		continue
+		s="Unknown status"
 	t=clean((r.split('best solutions">'))[1].split('<')[0])
 	m=clean((r.split('id="statusmem_'))[1].split('>')[1].split('<')[0])
 	print("Status : "+s)
