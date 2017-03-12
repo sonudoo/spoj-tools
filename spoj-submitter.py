@@ -88,7 +88,7 @@ while(1==1):
 	elif(status==13):
 		s="Time Limit Exceeded"
 	elif(status==12):
-		s=="Runtime Error"
+		s="Runtime Error"
 	elif(status==11):
 		s="Compilation Error"
 	elif(status==10):
