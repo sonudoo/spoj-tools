@@ -1,4 +1,5 @@
 import requests
+from collections import OrderedDict
 username = input("Enter your username: ")
 l = list(map(str,input("Enter space seperated list of friends: ").split()))
 
@@ -10,24 +11,22 @@ header = {'Host':'www.spoj.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win6
 #End common headers
 
 #Scrapping the submission of the user
-print("\nExtracting your info")
+print("\nExtracting your info\n")
 url = "http://www.spoj.com/users/"+username+"/"
 try:
 	r=str(requests.get(url,headers=header).content)
 except:
-	print("Connection error..")
+	print("\nConnection error..")
 	exit(0)
 r=r.split('<td align="left" width="14%"><a href="')
 if(len(r)==1):
-	print("No such username found or you have not solved any of the problem")
+	print("\nNo such username found or you have not solved any of the problem")
 else:
 	for i in range(1,len(r)):
 		s = r[i].split('>')[1].split('</a')[0]
 		if(s!=''):
 			su.add(s)
 #End scrapping
-
-print()
 
 #Scrapping the submission of friends
 for friend in l:
@@ -36,11 +35,11 @@ for friend in l:
 	try:
 		r=str(requests.get(url,headers=header).content)
 	except:
-		print("Connection error..")
+		print("\nConnection error..")
 		exit(0)
 	r=r.split('<td align="left" width="14%"><a href="')
 	if(len(r)==1):
-		print("No such friend '"+friend+"' found or he/she has not solved any of the problem")
+		print("\nNo such friend '"+friend+"' found or he/she has not solved any of the problem")
 	else:
 		for i in range(1,len(r)):
 			s = r[i].split('>')[1].split('</a')[0]
@@ -48,11 +47,10 @@ for friend in l:
 				sf.add(s)
 #End scrapping
 
-print()
-
 #Scrap for number of accepted solutions for each problem
 d={}
 _S = sf-su
+print()
 for i in _S:
 	print("Extracting info for '"+i+"'")
 	url = "http://www.spoj.com/ranks/"+i+"/"
@@ -66,12 +64,19 @@ for i in _S:
 	d[i] = int(j)
 #End of scrapping number of users
 
-print("\nYou have not solved "+str(len(d))+" that your friends have solved. The list is as follows: \n\nProblem Code - Users\n")
+print()
+
+d1 = OrderedDict(sorted(d.items(), key=lambda t: -t[1]))
+
+print("\nYou have not solved "+str(len(d))+" problems that your friends have solved. The list is as follows: \n\nProblem Code\t-\tAccepted\n")
 m=0
 midx=''
-for key in d:
-	print(" "+key+(15-len(key))*" "+str(d[key]))
-	if(d[key]>m):
-		m=d[key]
+for key in d1:
+	k = key
+	while (len(k) < 15):
+		k+=" "
+	print(k+"\t-\t"+str(d1[key]))
+	if(d1[key]>m):
+		m=d1[key]
 		midx=key
-print("\n\nYour next target is : "+midx)
+print("\nYour next target problem is : "+midx)
