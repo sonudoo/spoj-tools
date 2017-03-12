@@ -20,32 +20,6 @@ if not pfile.is_file():
 	exit(0)
 #End code for file exists
 
-#Check the language code
-lcodes = {1: 'C++ (gcc 6.3)', 2: 'Pascal (gpc 20070904)', 3: 'Perl (perl 5.24.1)', 4: 'Python (cpython 2.7.13)', 5: 'Fortran (gfortran 6.3)', 6: 'Whitespace (wspace 0.3)', 7: 'Ada95 (gnat 6.3)', 8: 'Ocaml (ocamlopt 4.01)', 9: 'Intercal (ick 0.3)', 10: 'Java (HotSpot 8u112)', 11: 'C (gcc 6.3)', 12: 'Branf**k (bff 1.0.6)', 13: 'Assembler 32 (nasm 2.12.01)', 14: 'Clips (clips 6.24)', 15: 'Prolog (swi 7.2.3)', 16: 'Icon (iconc 9.5.1)', 17: 'Ruby (ruby 2.3.3)', 18: 'Scheme (stalin 0.3)', 19: 'Pike (pike 8.0)', 20: 'D (gdc 6.3)', 21: 'Haskell (ghc 8.0.1)', 22: 'Pascal (fpc 3.0.0)', 23: 'Smalltalk (gst 3.2.5)', 24: 'JAR (JavaSE 6)', 25: 'Nice (nicec 0.9.13)', 26: 'Lua (luac 5.3.3)', 27: 'C# (gmcs 4.6.2)', 28: 'Bash (bash 4.4.5)', 29: 'PHP (php 7.1.0)', 30: 'Nemerle (ncc 1.2.0)', 31: 'Common Lisp (sbcl 1.3.13)', 32: 'Common Lisp (clisp 2.49)', 33: 'Scheme (guile 2.0.13)', 34: 'C99 (gcc 6.3)', 35: 'JavaScript (rhino 1.7.7)', 36: 'Erlang (erl 19)', 38: 'TCL (tcl 8.6)', 39: 'Scala (scala 2.12.1)', 40: 'SQLite (sqlite 3.16.2)', 41: 'C++ (g++ 4.3.2)', 42: 'Assembler 64 (nasm 2.12.01)', 43: 'Objective-C (gcc 6.3)', 44: 'C++14 (gcc 6.3)', 45: 'Assembler 32 (gcc 6.3 )', 46: 'Sed (sed 4)', 47: 'Kotlin (kotlin 1.0.6)', 48: 'Dart (dart 1.21)', 50: 'VB.net (mono 4.6.2)', 62: 'Text (plain text)', 81: 'C (clang 4.0)', 82: 'C++14 (clang 4.0)', 83: 'Objective-C (clang 4.0)', 84: 'D (ldc 1.1.0)', 85: 'Swift (swift 3.0.2)', 91: 'CoffeeScript (coffee 1.12.2)', 92: 'Fantom (fantom 1.0.69)', 93: 'Rust (rust 1.14.0)', 94: 'Pico Lisp (pico 16.12.8)', 95: 'Racket (racket 6.7)', 96: 'Elixir (elixir 1.3.3)', 97: 'Scheme (chicken 4.11.0)', 98: 'Gosu (gosu 1.14.2)', 99: 'Python (PyPy 2.6.0)', 102: 'D (dmd 2.072.2)', 104: 'AWK (gawk 4.1.3)', 105: 'AWK (mawk 1.3.3)', 107: 'Forth (gforth 0.7.3)', 108: 'Prolog (gnu prolog 1.4.5)', 110: 'BC (bc 1.06.95)', 111: 'Clojure (clojure 1.8.0)', 112: 'JavaScript (SMonkey 24.2.0)', 114: 'Go (go 1.7.4)', 115: 'Unlambda (unlambda 0.1.4.2)', 116: 'Python 3 (python  3.5)', 117: 'R (R 3.3.2)', 118: 'Cobol (opencobol 1.1.0)', 121: 'Groovy (groovy 2.4.7)', 122: 'Nim (nim 0.16.0)', 124: 'F# (mono 4.0.0)', 126: 'Python 3 nbc (python 3.4)', 127: 'Octave (octave 4.0.3)'}
-slcodes = {1: 'C++ (gcc 6.3)', 4: 'Python (cpython 2.7.13)', 10: 'Java (HotSpot 8u112)', 11: 'C (gcc 6.3)', 17: 'Ruby (ruby 2.3.3)', 27: 'C# (gmcs 4.6.2)', 29: 'PHP (php 7.1.0)', 34: 'C99 (gcc 6.3)', 35: 'JavaScript (rhino 1.7.7)', 41: 'C++ (g++ 4.3.2)', 44: 'C++14 (gcc 6.3)', 62: 'Text (plain text)', 81: 'C (clang 4.0)', 82: 'C++14 (clang 4.0)', 99: 'Python (PyPy 2.6.0)', 112: 'JavaScript (SMonkey 24.2.0)', 116: 'Python 3 (python  3.5)', 126: 'Python 3 nbc (python 3.4)'}
-
-while(1==1):
-	lang = input("\nEnter the language code (0 to list the popular languages, -1 to list all): ")
-	lang = int(lang)
-	if(lang==0):
-		print()
-		for key in slcodes:
-			print(str(key)+ "\t:\t" +lcodes[key])
-		print()
-	elif(lang==-1):
-		print()
-		for key in lcodes:
-			print(str(key)+ "\t:\t" +lcodes[key])
-		print()
-	else:
-		if(lang in lcodes):
-			break
-		else:
-			print("\nInvalid code. Try again..")
-			continue
-#End language check
-
-print("\nLanguage selected: "+lcodes[lang])
 print("Specified File: "+file)
 
 #Common headers for all requests
@@ -83,6 +57,33 @@ if(len(r.headers['Set-Cookie'].split('autologin_hash'))<2):
 else:
 	print('\nLogin successful')
 #End code to check login
+
+#Check the language code
+url = 'http://www.spoj.com/submit/'+qid+'/'
+try:
+	r=requests.get(url,headers=header,allow_redirects=False)
+except:
+	print("Connection error. Make sure you are connected to Internet")
+r=str(r.content).split('<option value="')
+for i in range(1,len(r)):
+	r[i] = r[i].split('" >')
+	lcodes[int(r[i][0])] = r[i][1].split('</option>')[0]
+print(lcodes)
+while(1==1):
+	lang = input("\nEnter the language code (-1 to list all): ")
+	lang = int(lang)
+	if(lang==-1):
+		print()
+		for key in lcodes:
+			print(str(key)+ "\t:\t" +lcodes[key])
+		print()
+	else:
+		if(lang in lcodes):
+			break
+		else:
+			print("\nInvalid code. Try again..")
+			continue
+#End language check
 
 #All checks have passed now. Upload the file
 file = {'subm_file': open(file,'rb')}
