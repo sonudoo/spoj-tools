@@ -26,25 +26,26 @@ slcodes = {1: 'C++ (gcc 6.3)', 4: 'Python (cpython 2.7.13)', 10: 'Java (HotSpot 
 
 while(1==1):
 	lang = input("\nEnter the language code (0 to list the popular languages, -1 to list all): ")
-	if(lang=="0"):
+	lang = int(lang)
+	if(lang==0):
 		print()
 		for key in slcodes:
-			print(key,lcodes[key])
+			print(str(key)+ "\t:\t" +lcodes[key])
 		print()
-	elif(lang=="-1"):
+	elif(lang==-1):
 		print()
 		for key in lcodes:
-			print(key,lcodes[key])
+			print(str(key)+ "\t:\t" +lcodes[key])
 		print()
 	else:
-		if(int(lang) in lcodes):
+		if(lang in lcodes):
 			break
 		else:
 			print("\nInvalid code. Try again..")
 			continue
 #End language check
 
-print("\nLanguage selected: "+lcodes[int(lang)])
+print("\nLanguage selected: "+lcodes[lang])
 print("Specified File: "+file)
 
 #Common headers for all requests
