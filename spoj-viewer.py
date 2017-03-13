@@ -1,40 +1,48 @@
-import sys
+import sys,requests
+try:
+	qid = sys.argv[1]
+except:
+	print('You have not mentioned the problem code in the parameter.\n\nUsage: python spoj-viewer.py <problemcode>\nEg: python spoj-viewer.py PRIME1')
+	exit(0)
+
+#Common headers for all requests
+header = {'Host':'www.spoj.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Referer':'http://www.spoj.com/'}
+#End common headers
+
+r=requests.get("http://www.spoj.com/problems/"+qid+"/",headers=header)
+problem=""
+try:
+	problem = str(r.content).split('<div id="problem-body">')[1].split('</div>')[0]
+except:
+	print('\nNo such problem found on spoj. Try again')
+
+problem = problem.split('\\r\\n')
 
 x = ''
 
-
-# 4 files needed
-
-#put initial code between div tags in test.txt
-
-#test.txt contains initial code between divs
-#test1.txt -> code after removing ending tags
-#test2.txt -> code after removing starting tags
-#test3.txt -> code after removing images
-
-
-#final output -> test3.txt
-
-fo = open("test.txt", "r")
-line = fo.readline()
-
-fi = open("test1.txt", "w")
-
-while (line):
-    x = line
+for line in range(len(problem)):
+    x = problem[line]
     while (True):
         k = 0
         p = x.find("</p>")
         if (p>-1):
-            x = x[:p]+"\n"+x[p+4:]
+            x = x[:p]+x[p+4:]
             k+=1
         p = x.find("</i>")
         if (p>-1):
-            x = x[:p]+x[p+4:]
+            x = x[:p]+"'"+x[p+4:]
             k+=1
         p = x.find("</b>")
         if (p>-1):
             x = x[:p]+"'"+x[p+4:]
+            k+=1
+        p = x.find("</strong>")
+        if (p>-1):
+            x = x[:p]+"'"+x[p+9:]
+            k+=1
+        p = x.find("</span>")
+        if (p>-1):
+            x = x[:p]+x[p+7:]
             k+=1
         p = x.find("</h>")
         if (p>-1):
@@ -66,25 +74,33 @@ while (line):
             k+=1
         p = x.find("</pre>")
         if (p>-1):
-            x = x[:p]+x[p+6:]
+            x = x[:p]+"\n"+x[p+6:]
             k+=1
         p = x.find("</em>")
         if (p>-1):
-            x = x[:p]+x[p+5:]
+            x = x[:p]+"'"+x[p+5:]
             k+=1
 
        
         p = x.find("</P>")
         if (p>-1):
-            x = x[:p]+"\n"+x[p+4:]
+            x = x[:p]+"\n\n"+x[p+4:]
             k+=1
         p = x.find("</I>")
         if (p>-1):
-            x = x[:p]+x[p+4:]
+            x = x[:p]+"'"+x[p+4:]
             k+=1
         p = x.find("</B>")
         if (p>-1):
             x = x[:p]+"'"+x[p+4:]
+            k+=1
+        p = x.find("</STRONG>")
+        if (p>-1):
+            x = x[:p]+"'"+x[p+9:]
+            k+=1
+        p = x.find("</SPAN>")
+        if (p>-1):
+            x = x[:p]+x[p+7:]
             k+=1
         p = x.find("</H>")
         if (p>-1):
@@ -116,31 +132,19 @@ while (line):
             k+=1
         p = x.find("</PRE>")
         if (p>-1):
-            x = x[:p]+x[p+6:]
+            x = x[:p]+"\n"+x[p+6:]
             k+=1
         p = x.find("</EM>")
         if (p>-1):
-            x = x[:p]+x[p+5:]
+            x = x[:p]+"'"+x[p+5:]
             k+=1
         if (k == 0):
             break
-    fi.write(x)
-    line = fo.readline()
-
-fo.close()
-fi.close()
+    problem[line] = x
 
 
-#Remove opening 
-
-
-fo = open("test1.txt", "r")
-line = fo.readline()
-
-fi = open("test2.txt", "w")
-
-while (line):
-    x = line
+for line in range(len(problem)):
+    x = problem[line]
     while (True):
         k = 0
         p = x.find("<p")
@@ -153,13 +157,25 @@ while (line):
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"'"+x[p1+1:]
                 k+=1
         p = x.find("<b")
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
                 x = x[:p]+"'"+x[p1+1:]
+                k+=1
+        p = x.find("<strong")
+        if (p>-1):
+            p1 = x.find(">", p+1)
+            if (p1 > -1):
+                x = x[:p]+"'"+x[p1+1:]
+                k+=1
+        p = x.find("<span")
+        if (p>-1):
+            p1 = x.find(">", p+1)
+            if (p1 > -1):
+                x = x[:p]+x[p1+1:]
                 k+=1
         p = x.find("<h")
         if (p>-1):
@@ -207,13 +223,13 @@ while (line):
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"\n"+x[p1+1:]
                 k+=1
         p = x.find("<em")
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"'"+x[p1+1:]
                 k+=1
 
 
@@ -227,13 +243,25 @@ while (line):
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"'"+x[p1+1:]
                 k+=1
         p = x.find("<B")
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
                 x = x[:p]+"'"+x[p1+1:]
+                k+=1
+        p = x.find("<STRONG")
+        if (p>-1):
+            p1 = x.find(">", p+1)
+            if (p1 > -1):
+                x = x[:p]+"'"+x[p1+1:]
+                k+=1
+        p = x.find("<SPAN")
+        if (p>-1):
+            p1 = x.find(">", p+1)
+            if (p1 > -1):
+                x = x[:p]+x[p1+1:]
                 k+=1
         p = x.find("<H")
         if (p>-1):
@@ -281,32 +309,20 @@ while (line):
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"\n"+x[p1+1:]
                 k+=1
         p = x.find("<EM")
         if (p>-1):
             p1 = x.find(">", p+1)
             if (p1 > -1):
-                x = x[:p]+x[p1+1:]
+                x = x[:p]+"'"+x[p1+1:]
                 k+=1
         if (k == 0):
             break
-    fi.write(x)
-    line = fo.readline()
+    problem[line] = x
 
-fo.close()
-fi.close()
-
-
-#   Remove Image Elements
-
-fo = open("test2.txt", "r")
-line = fo.readline()
-
-fi = open("test3.txt", "w")
-
-while (line):
-    x = line
+for line in range(len(problem)):
+    x = problem[line]
     while (True):
         k = 0
         p = x.find("<img")
@@ -323,9 +339,6 @@ while (line):
                 k+=1
         if (k == 0):
             break
-    fi.write(x)
-    line = fo.readline()
-
-fi.close()
-fo.close()
-
+    problem[line] = x
+problem = "\n".join(problem)
+print(problem.replace('\\n\\t',''))
