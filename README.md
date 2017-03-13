@@ -1,5 +1,7 @@
 # spoj-submitter
 
+main.py contains the main menu which runs all the other scripts. Please change the line 2 of main.py before use.
+
 #spoj-friends.py
 
 This python script takes one username and a list of one or more of his friends. The script then lists all the problems solved by his friend(s) and not by himself in sorted order of number of users who have solved that question. It can thus suggest the next problem that a user can solve.
