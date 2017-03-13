@@ -1,5 +1,7 @@
 # spoj-submitter
 
+Requirement: Python 3.2 or higher
+
 main.py contains the main menu which runs all the other scripts. Please change the line 2 of main.py before use.
 
 #spoj-friends.py
