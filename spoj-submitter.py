@@ -50,21 +50,24 @@ if not pfile.is_file():
 	exit(0)
 #End code for file exists
 
-print("Specified File: "+file)
+print("\nSpecified File: "+file)
 
 #Common headers for all requests
 header = {'Host':'www.spoj.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Referer':'http://www.spoj.com/'}
 #End common headers
 
-#Check is the problem exists
-url = 'http://www.spoj.com/submit/'+qid+'/'
+#Check if the problem exists
+url = 'http://www.spoj.com/problems/'+qid+'/'
 try:
 	r=requests.get(url,headers=header,allow_redirects=False)
 except:
 	print("Connection error. Make sure you are connected to Internet")
 	exit(0)
-if(r.status_code==404):
-	print('\nNo such problem was found on the server.')
+problem=""
+try:
+	problem = str(r.content).split('<div id="problem-body">')[1].split('</div>')[0]
+except:
+	print('\nNo such problem found on spoj. Try again')
 	exit(0)
 
 print("Specified problem: "+qid)
