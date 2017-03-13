@@ -10,7 +10,7 @@ usage: python spoj-friends.py
 
 This script loads the problem statement given a question code as input.
 
-usage: python spoj-viewer.py <problemcode>
+usage: python spoj-viewer.py &lt;problemcode&gt;
 
 #spoj-submitter.py
 
@@ -19,4 +19,4 @@ Your login credentials are stored in a pickle file. If the file is found next ti
 Once you are logged in you are asked to select from the languages available for that question.
 The script returns the verdict of the solution - along with the time and the memory consumed.
 
-usage: python spoj-submitter.py <problemcode> <filename>
+usage: python spoj-submitter.py &lt;problemcode&gt; &lt;filename&gt;
