@@ -17,328 +17,330 @@ except:
 	print('\nNo such problem found on spoj. Try again')
 
 problem = problem.split('\\r\\n')
+problem = "\n".join(problem)
 
 x = ''
-
-for line in range(len(problem)):
-    x = problem[line]
-    while (True):
-        k = 0
-        p = x.find("</p>")
-        if (p>-1):
-            x = x[:p]+x[p+4:]
+x = problem
+while (True):
+    k = 0
+    p = x.find("</p>")
+    if (p>-1):
+        x = x[:p]+x[p+4:]
+        k+=1
+    p = x.find("</i>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+4:]
+        k+=1
+    p = x.find("</b>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+4:]
+        k+=1
+    p = x.find("</strong>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+9:]
+        k+=1
+    p = x.find("</span>")
+    if (p>-1):
+        x = x[:p]+x[p+7:]
+        k+=1
+    p = x.find("</h>")
+    if (p>-1):
+        x = x[:p]+x[p+4:]
+        k+=1
+    p = x.find("</h1>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</h2>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</h3>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</h4>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</h5>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</h6>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</pre>")
+    if (p>-1):
+        x = x[:p]+"\n"+x[p+6:]
+        k+=1
+    p = x.find("</em>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+5:]
+        k+=1
+     
+    p = x.find("</P>")
+    if (p>-1):
+        x = x[:p]+"\n\n"+x[p+4:]
+        k+=1
+    p = x.find("</I>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+4:]
+        k+=1
+    p = x.find("</B>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+4:]
+        k+=1
+    p = x.find("</STRONG>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+9:]
+        k+=1
+    p = x.find("</SPAN>")
+    if (p>-1):
+        x = x[:p]+x[p+7:]
+        k+=1
+    p = x.find("</H>")
+    if (p>-1):
+        x = x[:p]+x[p+4:]
+        k+=1
+    p = x.find("</H1>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</H2>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</H3>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</H4>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</H5>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</H6>")
+    if (p>-1):
+        x = x[:p]+x[p+5:]
+        k+=1
+    p = x.find("</PRE>")
+    if (p>-1):
+        x = x[:p]+"\n"+x[p+6:]
+        k+=1
+    p = x.find("</EM>")
+    if (p>-1):
+        x = x[:p]+"'"+x[p+5:]
+        k+=1
+    if (k == 0):
+        break
+problem = x
+x = problem
+while (True):
+    k = 0
+    p = x.find("<p")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
             k+=1
-        p = x.find("</i>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+4:]
+    p = x.find("<i")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</b>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+4:]
+    p = x.find("<b")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</strong>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+9:]
+    p = x.find("<strong")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</span>")
-        if (p>-1):
-            x = x[:p]+x[p+7:]
+    p = x.find("<span")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h>")
-        if (p>-1):
-            x = x[:p]+x[p+4:]
+    p = x.find("<h")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h1>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h1")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h2>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h2")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h3>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h3")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h4>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h4")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h5>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h5")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</h6>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<h6")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</pre>")
-        if (p>-1):
-            x = x[:p]+"\n"+x[p+6:]
+    p = x.find("<pre")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
             k+=1
-        p = x.find("</em>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+5:]
+    p = x.find("<em")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-
-       
-        p = x.find("</P>")
-        if (p>-1):
-            x = x[:p]+"\n\n"+x[p+4:]
+    p = x.find("<P")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
             k+=1
-        p = x.find("</I>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+4:]
+    p = x.find("<I")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</B>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+4:]
+    p = x.find("<B")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</STRONG>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+9:]
+    p = x.find("<STRONG")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        p = x.find("</SPAN>")
-        if (p>-1):
-            x = x[:p]+x[p+7:]
+    p = x.find("<SPAN")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H>")
-        if (p>-1):
-            x = x[:p]+x[p+4:]
+    p = x.find("<H")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H1>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H1")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H2>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H2")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H3>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H3")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H4>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H4")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H5>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H5")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</H6>")
-        if (p>-1):
-            x = x[:p]+x[p+5:]
+    p = x.find("<H6")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+x[p1+1:]
             k+=1
-        p = x.find("</PRE>")
-        if (p>-1):
-            x = x[:p]+"\n"+x[p+6:]
+    p = x.find("<PRE")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
             k+=1
-        p = x.find("</EM>")
-        if (p>-1):
-            x = x[:p]+"'"+x[p+5:]
+    p = x.find("<EM")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"'"+x[p1+1:]
             k+=1
-        if (k == 0):
-            break
-    problem[line] = x
-
-
-for line in range(len(problem)):
-    x = problem[line]
-    while (True):
-        k = 0
-        p = x.find("<p")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"\n"+x[p1+1:]
-                k+=1
-        p = x.find("<i")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<b")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<strong")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<span")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h1")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h2")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h3")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h4")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h5")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<h6")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<pre")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"\n"+x[p1+1:]
-                k+=1
-        p = x.find("<em")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-
-
-        p = x.find("<P")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"\n"+x[p1+1:]
-                k+=1
-        p = x.find("<I")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<B")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<STRONG")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        p = x.find("<SPAN")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H1")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H2")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H3")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H4")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H5")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<H6")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+x[p1+1:]
-                k+=1
-        p = x.find("<PRE")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"\n"+x[p1+1:]
-                k+=1
-        p = x.find("<EM")
-        if (p>-1):
-            p1 = x.find(">", p+1)
-            if (p1 > -1):
-                x = x[:p]+"'"+x[p1+1:]
-                k+=1
-        if (k == 0):
-            break
-    problem[line] = x
-
-for line in range(len(problem)):
-    x = problem[line]
-    while (True):
-        k = 0
-        p = x.find("<img")
-        if (p > -1):
-            p1 = x.find("/img>")
-            if (p1>-1):
-                x = x[:p]+"\n"+x[p1+5:]
-                k+=1
-        p = x.find("<IMG")
-        if (p > -1):
-            p1 = x.find("/IMG>")
-            if (p1>-1):
-                x = x[:p]+"\n"+x[p1+5:]
-                k+=1
-        if (k == 0):
-            break
-    problem[line] = x
-problem = "\n".join(problem)
+    if (k == 0):
+        break
+problem = x
+x = problem
+while (True):
+    k = 0
+    p = x.find("<img")
+    if (p > -1):
+        p1 = x.find("/img>")
+        if (p1>-1):
+            x = x[:p]+"\n"+x[p1+5:]
+            k+=1
+    p = x.find("<IMG")
+    if (p > -1):
+        p1 = x.find("/IMG>")
+        if (p1>-1):
+            x = x[:p]+"\n"+x[p1+5:]
+            k+=1
+    p = x.find("<script")
+    if (p > -1):
+        p1 = x.find("/script>")
+        if (p1>-1):
+            x = x[:p]+x[p1+8:]
+            k+=1
+    p = x.find("<SCRIPT")
+    if (p > -1):
+        p1 = x.find("/SCRIPT>")
+        if (p1>-1):
+            x = x[:p]+x[p1+8:]
+            k+=1
+    if (k == 0):
+        break
+problem = x
 print(problem.replace('\\n\\t',''))
