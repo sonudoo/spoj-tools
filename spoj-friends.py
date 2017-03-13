@@ -1,7 +1,7 @@
 import requests
 from collections import OrderedDict
-username = input("Enter your username: ")
-l = list(map(str,input("Enter space seperated list of friends: ").split()))
+username = input("\nEnter your username: ")
+l = list(map(str,input("\nEnter space seperated list of friends: ").split()))
 
 su = set() #Problem solved by user
 sf = set() #Problems solved by friends
