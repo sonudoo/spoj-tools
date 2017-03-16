@@ -75,11 +75,15 @@ while (True):
     if (p>-1):
         x = x[:p]+"\n"+x[p+6:]
         k+=1
+    p = x.find("</div>")
+    if (p>-1):
+        x = x[:p]+"\n"+x[p+6:]
+        k+=1
     p = x.find("</em>")
     if (p>-1):
         x = x[:p]+"'"+x[p+5:]
         k+=1
-     
+
     p = x.find("</P>")
     if (p>-1):
         x = x[:p]+"\n\n"+x[p+4:]
@@ -129,6 +133,10 @@ while (True):
         x = x[:p]+x[p+5:]
         k+=1
     p = x.find("</PRE>")
+    if (p>-1):
+        x = x[:p]+"\n"+x[p+6:]
+        k+=1
+    p = x.find("</DIV>")
     if (p>-1):
         x = x[:p]+"\n"+x[p+6:]
         k+=1
@@ -220,6 +228,12 @@ while (True):
         if (p1 > -1):
             x = x[:p]+"\n"+x[p1+1:]
             k+=1
+    p = x.find("<div")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
+            k+=1
     p = x.find("<em")
     if (p>-1):
         p1 = x.find(">", p+1)
@@ -304,6 +318,12 @@ while (True):
         if (p1 > -1):
             x = x[:p]+"\n"+x[p1+1:]
             k+=1
+    p = x.find("<DIV")
+    if (p>-1):
+        p1 = x.find(">", p+1)
+        if (p1 > -1):
+            x = x[:p]+"\n"+x[p1+1:]
+            k+=1
     p = x.find("<EM")
     if (p>-1):
         p1 = x.find(">", p+1)
@@ -320,13 +340,13 @@ while (True):
     if (p > -1):
         p1 = x.find("/img>")
         if (p1>-1):
-            x = x[:p]+"\n"+x[p1+5:]
+            x = x[:p]+"\nImage Here\n"+x[p1+5:]
             k+=1
     p = x.find("<IMG")
     if (p > -1):
         p1 = x.find("/IMG>")
         if (p1>-1):
-            x = x[:p]+"\n"+x[p1+5:]
+            x = x[:p]+"\nImage Here\n"+x[p1+5:]
             k+=1
     p = x.find("<script")
     if (p > -1):
@@ -340,7 +360,31 @@ while (True):
         if (p1>-1):
             x = x[:p]+x[p1+8:]
             k+=1
+    p = x.find("<table")
+    if (p > -1):
+        p1 = x.find("/table>")
+        if (p1>-1):
+            x = x[:p]+"\nTable Here\n"+x[p1+7:]
+            k+=1
+    p = x.find("<TABLE")
+    if (p > -1):
+        p1 = x.find("/TABLE>")
+        if (p1>-1):
+            x = x[:p]+"\nTable Here\n"+x[p1+7:]
+            k+=1
     if (k == 0):
         break
 problem = x
+
+
+
+d = {'&nbsp;' : ' ', '&lt;' : '<', '&gt;' : '>', '&amp;' : '&', '&quot;' : '"', '&apos;' : '"', '&cent;' : '¢', '&pound;' : '£','&yen;' : '¥', '&euro;' : '€', '&copy;' : '©', '&reg;' : '®', '&ge;' : '>=', '&le;' : '<=', '&minus;' : '-', '&divide;' : '÷', '&and;' : '^', '&equiv;' : '≡'}
+
+for key in d.keys():
+	pos = 0
+	while (pos > -1):
+		pos = problem.find(key)
+		if (pos > -1):
+			problem = problem[:pos] + d[key] + problem[pos+ len(key):]
+
 print(problem.replace('\\n\\t',''))
