@@ -18,6 +18,10 @@ try:
 except:
 	print("\nConnection error..")
 	exit(0)
+try:
+	r=r.split('TODO ')[0]
+except:
+	r=r
 r=r.split('<td align="left" width="14%"><a href="')
 if(len(r)==1):
 	print("\nNo such username found or you have not solved any of the problem")
@@ -37,6 +41,10 @@ for friend in l:
 	except:
 		print("\nConnection error..")
 		exit(0)
+	try:
+		r=r.split('TODO ')[0]
+	except:
+		r=r
 	r=r.split('<td align="left" width="14%"><a href="')
 	if(len(r)==1):
 		print("\nNo such friend '"+friend+"' found or he/she has not solved any of the problem")
@@ -50,6 +58,9 @@ for friend in l:
 #Scrap for number of accepted solutions for each problem
 d={}
 _S = sf-su
+if(len(_S)==0):
+	print('\nYou have solved every problems solved by your friends')
+	exit(0)
 print()
 for i in _S:
 	print("Extracting info for '"+i+"'")
