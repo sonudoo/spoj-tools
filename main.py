@@ -1,5 +1,5 @@
 import os
-pyt = "python" #Here is the command that you use to run python. Possible values - python,python3,python27 etc
+pyt = "python3" #Here is the command that you use to run python. Possible values - python,python3,python27 etc
 while(1==1):
 	print('\nMain Menu:\n')
 	print('1. You vs your friends')
