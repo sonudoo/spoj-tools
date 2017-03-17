@@ -403,9 +403,9 @@ else:
 
 
     #Save the problem in a file
-    if(os.path.isdir('./problems/')==False):
+    if(os.path.isdir('problems')==False):
         try:
-            os.mkdirs('problems')
+            os.makedirs('problems')
         except:
             print('\nPermission denied to save problems\n')
     try:
@@ -441,3 +441,7 @@ else:
             print(problem[i])
             i+=1
 #End Problem printer
+
+
+
+
