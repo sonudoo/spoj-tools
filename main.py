@@ -1,12 +1,16 @@
 import os
-pyt = "python3" #Here is the command that you use to run python. Possible values - python,python3,python27 etc
+pyt = "python" #Here is the command that you use to run python. Possible values - python,python3,python27 etc
 while(1==1):
 	print('\nMain Menu:\n')
 	print('1. You vs your friends')
 	print('2. View a problem')
 	print('3. Submit a solution')
 	print('4. Exit\n')
-	c = int(input('Enter your choice: '))
+	try:
+		c = int(input('Enter your choice: '))
+	except:
+		print('Try again..')
+		continue
 	if(c==1):
 		try:
 			os.system(pyt+" spoj-friends.py")
