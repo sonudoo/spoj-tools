@@ -39,7 +39,7 @@ try:
 except:
 	print("Failed to start web scrapping. Please give a valid set of arguments.")
 	print("Format: python spoj-submitter.py <filename> <problemname>")
-	print("Sample use: python spoj-submitter.py FOXLINGS myfile.cpp")
+	print("Sample use: python spoj-submitter.py myfile.cpp PRIME1")
 	exit(0)
 #End check for arguments 
 
@@ -105,7 +105,7 @@ for i in range(1,len(r)):
 	r[i] = r[i].split('" >')
 	lcodes[int(r[i][0])] = r[i][1].split('</option>')[0]
 while(1==1):
-	language = input("\nEnter the language (For example: java8,java,g++,gcc etc, 0 to list all): ")
+	language = input("\nEnter the language (For example: java8,java,c++,gcc etc, 0 to list all): ")
 	if(language=="0"):
 		print()
 		for key in lcodes:
