@@ -14,7 +14,7 @@ problem=""
 try:
 	problem = str(r.content).split('<div id="problem-body">')[1].split('</div>')[0]
 except:
-	print('\nNo such problem found on spoj. Try again')
+    print('\nNo such problem found on spoj. Try again')
     exit(0)
 
 problem = problem.split('\\r\\n')
@@ -416,3 +416,7 @@ else:
             print(problem[i])
             i+=1
 #End Problem printer
+
+
+
+
