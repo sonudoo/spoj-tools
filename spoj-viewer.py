@@ -1,4 +1,4 @@
-import sys,requests
+import sys,requests,os
 try:
 	qid = sys.argv[1]
 except:
@@ -15,6 +15,7 @@ try:
 	problem = str(r.content).split('<div id="problem-body">')[1].split('</div>')[0]
 except:
 	print('\nNo such problem found on spoj. Try again')
+    exit(0)
 
 problem = problem.split('\\r\\n')
 problem = "\n".join(problem)
@@ -378,7 +379,7 @@ problem = x
 
 
 
-d = {'&nbsp;' : ' ', '&lt;' : '<', '&gt;' : '>', '&amp;' : '&', '&quot;' : '"', '&apos;' : '"', '&cent;' : '¢', '&pound;' : '£','&yen;' : '¥', '&euro;' : '€', '&copy;' : '©', '&reg;' : '®', '&ge;' : '>=', '&le;' : '<=', '&minus;' : '-', '&divide;' : '÷', '&and;' : '^', '&equiv;' : '≡'}
+d = {'&nbsp;' : ' ', '&lt;' : '<', '&gt;' : '>', '&amp;' : '&', '&quot;' : '"', ' &#8211;' : '-' , '&apos;' : '"', '&cent;' : '¢', '&pound;' : '£','&yen;' : '¥', '&euro;' : '€', '&copy;' : '©', '&reg;' : '®', '&ge;' : '>=', '&le;' : '<=', '&minus;' : '-', '&divide;' : '÷', '&and;' : '^', '&equiv;' : '≡'}
 
 for key in d.keys():
 	pos = 0
@@ -387,4 +388,31 @@ for key in d.keys():
 		if (pos > -1):
 			problem = problem[:pos] + d[key] + problem[pos+ len(key):]
 
-print(problem.replace('\\n\\t',''))
+problem = problem.replace('\\n\\t','').replace("\\'","'").replace("\\n","\n").replace("' ","").replace("''","")
+
+problem = problem.split('\n')
+
+#Clear the screen to display problem
+if(sys.platform == "win32"):
+    os.system("cls")
+else:
+    os.system("clear")
+#End clear
+
+#Problem printer
+ts = os.get_terminal_size().lines-5
+if(ts>len(problem)):
+    for i in problem:
+        print(i)
+else:
+    for i in range(ts):
+        print(problem[i])
+    i = ts
+    tot = ts
+    while(i<len(problem)):
+        enter=input()
+        tot+=ts
+        while(i<len(problem) and i<tot):
+            print(problem[i])
+            i+=1
+#End Problem printer
