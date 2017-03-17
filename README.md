@@ -21,3 +21,13 @@ usage: python spoj-viewer.py &lt;problemcode&gt;
 This python script is a Command Line Solution Submitter for spoj.com.Your login credentials are stored in a pickle file. If the file is found next time then it logs in automatically otherwise you need to login again. To login from other user's account you have to delete the pickle file.Once you are logged in you are asked to select from the languages available for that question. The script returns the verdict of the solution - along with the time and the memory consumed.
 
 usage: python spoj-submitter.py &lt;filename&gt; &lt;problemname&gt;
+
+#.vimrc
+
+The following .vimrc config file code enables the scripts to be run from within vim. So you can view a problem, code and submit directly from the vim terminal. 
+The usage is as follows:
+
+1. To view a problem - :VW &lt;problem-code&gt;
+2. To submit a problem - :SB &lt;problem-code&gt;
+
+Please change line 1 to the path where you have installed spoj-tools.
