@@ -22,7 +22,7 @@ This python script is a Command Line Solution Submitter for spoj.com.Your login 
 
 usage: python spoj-submitter.py &lt;filename&gt; &lt;problemname&gt;
 
-#.vimrc
+# .vimrc
 
 The following .vimrc config file code enables the scripts to be run from within vim. So you can view a problem, code and submit directly from the vim terminal. 
 The usage is as follows:
