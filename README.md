@@ -18,9 +18,6 @@ usage: python spoj-viewer.py &lt;problemcode&gt;
 
 # spoj-submitter.py
 
-This python script is a Command Line Solution Submitter for spoj.com. The usage is python spoj-submitter.py <problemcode> <filename>.
-Your login credentials are stored in a pickle file. If the file is found next time then it logs in automatically otherwise you need to login again. To login from other user's account you have to delete the pickle file.
-Once you are logged in you are asked to select from the languages available for that question.
-The script returns the verdict of the solution - along with the time and the memory consumed.
+This python script is a Command Line Solution Submitter for spoj.com.Your login credentials are stored in a pickle file. If the file is found next time then it logs in automatically otherwise you need to login again. To login from other user's account you have to delete the pickle file.Once you are logged in you are asked to select from the languages available for that question. The script returns the verdict of the solution - along with the time and the memory consumed.
 
-usage: python spoj-submitter.py &lt;problemcode&gt; &lt;filename&gt;
+usage: python spoj-submitter.py &lt;filename&gt; &lt;problemname&gt;
