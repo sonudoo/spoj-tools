@@ -34,11 +34,11 @@ except:
 
 #Check for valid arguments
 try:
-	qid = sys.argv[1]
-	file = sys.argv[2]
+	qid = sys.argv[2]
+	file = sys.argv[1]
 except:
 	print("Failed to start web scrapping. Please give a valid set of arguments.")
-	print("Format: python spoj-submitter.py <problemcode> <filename>")
+	print("Format: python spoj-submitter.py <filename> <problemname>")
 	print("Sample use: python spoj-submitter.py FOXLINGS myfile.cpp")
 	exit(0)
 #End check for arguments 
