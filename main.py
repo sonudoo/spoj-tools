@@ -26,7 +26,7 @@ while(1==1):
 		problem = input('\nEnter the problem code: ')
 		file = input('\nEnter the filename to submit: ')
 		try:
-			os.system(pyt+" spoj-submitter.py "+problem+" "+file)
+			os.system(pyt+" spoj-submitter.py "+file+" "+problem)
 		except:
 			print('Error: File missing or permission denied')
 	elif(c==4):
