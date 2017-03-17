@@ -94,6 +94,7 @@ else:
 
 #Check the language code
 lcodes={}
+lang = -1
 url = 'http://www.spoj.com/submit/'+qid+'/'
 try:
 	r=requests.get(url,headers=header,allow_redirects=False)
@@ -104,15 +105,20 @@ for i in range(1,len(r)):
 	r[i] = r[i].split('" >')
 	lcodes[int(r[i][0])] = r[i][1].split('</option>')[0]
 while(1==1):
-	lang = input("\nEnter the language code (-1 to list all): ")
-	lang = int(lang)
-	if(lang==-1):
+	language = input("\nEnter the language (For example: java8,java,g++,gcc etc, 0 to list all): ")
+	if(language=="0"):
 		print()
 		for key in lcodes:
 			print(str(key)+ "\t:\t" +lcodes[key])
 		print()
 	else:
-		if(lang in lcodes):
+		lang = -1
+		for key in lcodes:
+			if((lcodes[key].lower()).find((language.lower()))!=-1):
+				lang = key
+				print('\nLanguage selected: '+lcodes[key]+" ("+str(key)+")\n")
+				break
+		if(lang!=-1):
 			break
 		else:
 			print("\nInvalid code. Try again..")
