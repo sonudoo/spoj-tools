@@ -1,4 +1,4 @@
-import sys,requests,json,pathlib,time,pickle,getpass,os
+import sys,requests,json,pathlib,time,pickle,getpass,os,subprocess
 username = ""
 password = ""
 try:
@@ -41,7 +41,7 @@ except:
 	print("Format: python spoj-submitter.py <filename> <problemname>")
 	print("Sample use: python spoj-submitter.py myfile.cpp PRIME1")
 	exit(0)
-#End check for arguments 
+#End check for arguments
 
 #Code to check is the file exists
 pfile = pathlib.Path(file)
@@ -51,6 +51,45 @@ if not pfile.is_file():
 #End code for file exists
 
 print("\nSpecified File: "+file)
+
+ch = (input("Do you want to test the problem in SPOJ Toolkit (y/n): ")).lower()
+
+if (ch not in ['n', 'no']):
+	c = subprocess.Popen(["g++",file,"-o","Program"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	time.sleep(2)
+	if(os.path.isfile('Program')==False):
+		print('Compilation error');
+		exit(0)
+	header = {'Host':'www.spojtoolkit.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Referer':'http://www.spojtoolkit.com/'}
+	url = 'http://www.spojtoolkit.com/history/'+qid+'/'
+	try:
+		r=requests.get(url,headers=header,allow_redirects=False)
+	except:
+		print("Connection error. Make sure you are connected to Internet")
+		exit(0)
+	test_string = r.content.decode(errors='ignore').split('<pre')
+	test_cases = []
+	for i in range(1,len(test_string)):
+		case = test_string[i].split('</pre>')[0].split('>')[1]
+		payload = {'problemId':qid, 'testInput': case, 'timeLimit': '1', 'type':'codeTest', 'cache':'1'}
+		r = requests.post('http://spojtoolkit.com/src-drivers/ExecuteCodeOnAPI-driver.php',headers=header,allow_redirects=False,data=payload)
+		r = json.loads(r.content.decode(errors='ignore'))
+		if(r['status']!="AC"):
+			print("There was some issue with the testcase/server? Do you wish to submit directly?")
+			break
+		else:
+			correct_answer = r['msg']
+			f = open('temp.txt','w')
+			f.write(case)
+			f.close()
+			f = open('temp.txt', 'r')
+			p = subprocess.Popen("./Program",stdout=subprocess.PIPE,stdin=f)
+			output = p.communicate()[0].decode('ascii')
+			if(output!=correct_answer):
+				print("Wrong answer in case no. "+str(i)+"\n\n**Your output**\n\n"+output+"\n\n**Expected output**\n\n"+correct_answer)
+				exit(0)
+			else:
+				print('Case no. '+str(i)+" passed")
 
 #Common headers for all requests
 header = {'Host':'www.spoj.com','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Referer':'http://www.spoj.com/'}
